@@ -16,7 +16,8 @@ public abstract class Item implements Items {
     }
 
     @Override
-    public void drop() {
+    public void destroy() {
+
 
     }
 }

@@ -4,5 +4,5 @@ public interface Items {
 
     Boolean isCollected();
     Boolean isUsed();
-    void drop();
+    void destroy();
 }
