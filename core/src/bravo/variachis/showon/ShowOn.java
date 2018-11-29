@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -30,6 +31,7 @@ public class ShowOn extends Game {
     private int objectLayerId = 5;
 
 
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -37,7 +39,9 @@ public class ShowOn extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
 
-        map = new TmxMapLoader().load("basemap.tmx");
+
+
+        map = new TmxMapLoader().load("test1.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         playerImg = new Texture(Gdx.files.internal("smallRect.jpg"));
@@ -45,8 +49,8 @@ public class ShowOn extends Game {
         player = new Rectangle();
         player.x = 0;
         player.y = 0;
-        player.width = 15;
-        player.height = 15;
+        player.width = playerImg.getWidth();
+        player.height = playerImg.getHeight();
 
 
     }
@@ -76,6 +80,7 @@ public class ShowOn extends Game {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player.x += SPEED * Gdx.graphics.getDeltaTime();
+
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.y += SPEED * Gdx.graphics.getDeltaTime();
@@ -101,17 +106,26 @@ public class ShowOn extends Game {
         }
 
 
-        TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(0);
-        MapObjects objects = collisionObjectLayer.getObjects();
 
-        System.out.println(collisionObjectLayer.toString());
+
+       // TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(1);
+        MapObjects objects = map.getLayers().get(1).getObjects();
+
+
 
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            //System.out.println("entrou");
 
             Rectangle rectangle = rectangleObject.getRectangle();
-            if (Intersector.overlaps(rectangle, player)) {
-                System.out.println("asdasd");
+            if (Intersector.overlaps(player, rectangle)) {
+                System.out.println("collision");
+                System.out.println("player x:" + player.x +"player y:" + player.y);
+                System.out.println("rectangle x:" + rectangle.x + "rectangle y:" + rectangle.y);
             }
+
+            /*if(player.x + player.height > rectangle.x && player.y + player.width > rectangle.y){
+                player.x = player.
+            }*/
         }
     }
 
