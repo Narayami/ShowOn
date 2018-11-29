@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,13 +23,11 @@ public class ShowOn extends Game {
     private static final float SPEED = 200;
     private SpriteBatch batch;
     private Texture playerImg;
+
     private Rectangle player;
     private OrthographicCamera camera;
     private TiledMap map;
     private TiledMapRenderer mapRenderer;
-
-    private int objectLayerId = 5;
-
 
     @Override
     public void create() {
@@ -40,13 +39,14 @@ public class ShowOn extends Game {
         map = new TmxMapLoader().load("basemap.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
+
         playerImg = new Texture(Gdx.files.internal("smallRect.jpg"));
 
         player = new Rectangle();
-        player.x = 0;
-        player.y = 0;
-        player.width = 15;
-        player.height = 15;
+        player.x = 420;
+        player.y = 420;
+        player.width = playerImg.getWidth();
+        player.height = playerImg.getHeight();
 
 
     }
@@ -61,7 +61,7 @@ public class ShowOn extends Game {
         batch.setProjectionMatrix(camera.combined);
         camera.update();
 
-        mapRenderer.setView(camera);
+        mapRenderer.setView(this.camera);
         mapRenderer.render();
 
 
@@ -69,6 +69,58 @@ public class ShowOn extends Game {
         batch.draw(playerImg, player.x, player.y);
         batch.end();
 
+
+
+
+        //player col with screen
+        if (player.x < 0) {
+            player.x = 0;
+        }
+        if (player.x > 800 - playerImg.getWidth()) {
+            player.x = 800 - playerImg.getWidth();
+        }
+
+        if (player.y < 0) {
+            player.y = 0;
+        }
+
+        if (player.y > 600 - playerImg.getHeight()) {
+            player.y = 600 - playerImg.getHeight();
+        }
+
+        move();
+
+    }
+
+
+    @Override
+    public void dispose() {
+        playerImg.dispose();
+        batch.dispose();
+    }
+
+    public boolean checkMapColision() {
+        //MapLayer collisionObjectLayer = map.getLayers().get("Tile Layer 1");
+        MapObjects objects = map.getLayers().get(1).getObjects();
+
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+
+            Rectangle rectangle = rectangleObject.getRectangle();
+
+            if (player.overlaps(rectangle)) {
+                return true;
+            }
+
+            System.out.println("player x:" + player.x + "player y:" + player.y);
+            System.out.println("rect x:" + rectangle.x + "rect y" + rectangle.y);
+
+        }
+        return false;
+    }
+
+    private void move() {
+        float playerOldX = player.x;
+        float playerOldY = player.y;
 
         //player movement
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -84,43 +136,10 @@ public class ShowOn extends Game {
             player.y -= SPEED * Gdx.graphics.getDeltaTime();
         }
 
-        //player col with screen
-        if(player.x < 0 ){
-            player.x = 0;
-        }
-        if (player.x > 800 - playerImg.getWidth()){
-            player.x = 800 - playerImg.getWidth();
-        }
+        if (checkMapColision()) {
+            player.x = playerOldX;
+            player.y = playerOldY;
 
-        if(player.y < 0 ){
-            player.y = 0 - playerImg.getHeight();
-        }
-
-        if (player.y > 600 - playerImg.getHeight()){
-            player.y = 600 - playerImg.getHeight();
-        }
-
-
-        TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(0);
-        MapObjects objects = collisionObjectLayer.getObjects();
-
-        System.out.println(collisionObjectLayer.toString());
-
-        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
-
-            Rectangle rectangle = rectangleObject.getRectangle();
-            if (Intersector.overlaps(rectangle, player)) {
-                System.out.println("asdasd");
-            }
         }
     }
-
-    @Override
-    public void dispose() {
-        playerImg.dispose();
-        batch.dispose();
-    }
-
-
-
 }
