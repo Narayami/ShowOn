@@ -37,7 +37,7 @@ public class ShowOn extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
 
-        map = new TmxMapLoader().load("/core/assets/basemap.tmx");
+        map = new TmxMapLoader().load("basemap.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         playerImg = new Texture(Gdx.files.internal("smallRect.jpg"));
@@ -84,19 +84,35 @@ public class ShowOn extends Game {
             player.y -= SPEED * Gdx.graphics.getDeltaTime();
         }
 
+        //player col with screen
+        if(player.x < 0 ){
+            player.x = 0;
+        }
+        if (player.x > 800 - playerImg.getWidth()){
+            player.x = 800 - playerImg.getWidth();
+        }
 
-        TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(1);
+        if(player.y < 0 ){
+            player.y = 0 - playerImg.getHeight();
+        }
+
+        if (player.y > 600 - playerImg.getHeight()){
+            player.y = 600 - playerImg.getHeight();
+        }
+
+
+        TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(0);
         MapObjects objects = collisionObjectLayer.getObjects();
 
-        // there are several other types, Rectangle is probably the most common one
+        System.out.println(collisionObjectLayer.toString());
+
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
 
             Rectangle rectangle = rectangleObject.getRectangle();
             if (Intersector.overlaps(rectangle, player)) {
-                // collision happened
+                System.out.println("asdasd");
             }
         }
-
     }
 
     @Override
@@ -104,4 +120,7 @@ public class ShowOn extends Game {
         playerImg.dispose();
         batch.dispose();
     }
+
+
+
 }
