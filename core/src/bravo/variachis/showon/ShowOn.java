@@ -37,7 +37,7 @@ public class ShowOn extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
 
-        map = new TmxMapLoader().load("core/assets/basemap.tmx");
+        map = new TmxMapLoader().load("/core/assets/basemap.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         playerImg = new Texture(Gdx.files.internal("smallRect.jpg"));
