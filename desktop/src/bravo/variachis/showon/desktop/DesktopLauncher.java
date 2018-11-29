@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.title = "The Show Must Go On";
 		config.width = 800;
 		config.height = 600;
+		config.backgroundFPS = 60;
 		new LwjglApplication(new ShowOn(), config);
 	}
 }
