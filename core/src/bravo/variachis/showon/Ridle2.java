@@ -3,12 +3,11 @@ package bravo.variachis.showon;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Riddle implements ApplicationListener {
+public class Ridle2 implements ApplicationListener {
 
     private SpriteBatch batch;
     private BitmapFont question;
@@ -16,7 +15,7 @@ public class Riddle implements ApplicationListener {
     private Quest1 quest1;
     private GameScreenInterface screen;
 
-    public Riddle(GameScreenInterface screen){
+    public Ridle2(GameScreenInterface screen){
 
         this.screen = screen;
     }
@@ -97,7 +96,7 @@ public class Riddle implements ApplicationListener {
             screen.setQuestResolved();
             answer.draw(batch, "Incorrect, they do refer to determination.", 250, 100);
             answer.setColor(Color.WHITE);
-    }
+        }
 
     /*public void riddle2(){
 
@@ -142,5 +141,4 @@ public class Riddle implements ApplicationListener {
     }
 
 }
-
 
