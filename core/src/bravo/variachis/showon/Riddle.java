@@ -75,7 +75,7 @@ public class Riddle implements ApplicationListener {
 
         //batch.begin();
         if (!screen.getQuestResolved()) {
-            question.draw(batch, "RIDDLE: The lyrics of the SHOW MUST GO ON refers to determination?\nT-True\nF-False", 250, 100);
+            question.draw(batch, "The lyrics in SHOW MUST GO ON refer to determination?\nT-True\nF-False", 250, 100);
             question.setColor(Color.WHITE);
         }
 
@@ -95,7 +95,7 @@ public class Riddle implements ApplicationListener {
 
             question.dispose();
             screen.setQuestResolved();
-            answer.draw(batch, "Incorrect, they do refer to determination.", 250, 100);
+            answer.draw(batch, "Incorrect!.", 250, 100);
             answer.setColor(Color.WHITE);
     }
 

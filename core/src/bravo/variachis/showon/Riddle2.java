@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Ridle2 implements ApplicationListener {
+public class Riddle2 implements ApplicationListener {
 
     private SpriteBatch batch;
     private BitmapFont question;
@@ -15,7 +15,7 @@ public class Ridle2 implements ApplicationListener {
     private Quest1 quest1;
     private GameScreenInterface screen;
 
-    public Ridle2(GameScreenInterface screen){
+    public Riddle2(GameScreenInterface screen){
 
         this.screen = screen;
     }
@@ -74,27 +74,25 @@ public class Ridle2 implements ApplicationListener {
 
         //batch.begin();
         if (!screen.getQuestResolved()) {
-            question.draw(batch, "RIDDLE: The lyrics of the SHOW MUST GO ON refers to determination?\nT-True\nF-False", 250, 100);
+            question.draw(batch, "What was Freddie Mercury highest singing note? \nT-A6\nF-C7", 250, 100);
             question.setColor(Color.WHITE);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.T)) {
-
-            question.dispose();
-            screen.setQuestResolved();
-            answer.draw(batch, "Correct.", 250, 100);
-            answer.setColor(Color.WHITE);
-            //batch.end();
-            //font.dispose();
-
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
 
             question.dispose();
             screen.setQuestResolved();
-            answer.draw(batch, "Incorrect, they do refer to determination.", 250, 100);
+            answer.draw(batch, "Correct.", 250, 100);
+            answer.setColor(Color.WHITE);
+
+
+
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.T)) {
+
+            question.dispose();
+            answer.draw(batch, "Incorrect.", 250, 100);
             answer.setColor(Color.WHITE);
         }
 

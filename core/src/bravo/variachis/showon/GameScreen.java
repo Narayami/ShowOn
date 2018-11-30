@@ -320,10 +320,20 @@ public class GameScreen implements Screen, GameScreenInterface {
 
             BitmapFont message = new BitmapFont();
             batch.begin();
-            message.draw(batch, "Freddy was here!", 250, 100);
+            message.draw(batch, "Freddy was here! \nAlso, I like pianos.", 250, 100);
             message.setColor(Color.WHITE);
             batch.end();
         }
+
+        if(object3()){
+
+            BitmapFont message = new BitmapFont();
+            batch.begin();
+            message.draw(batch, "It says here Filipe is a princess.", 250, 100);
+            message.setColor(Color.WHITE);
+            batch.end();
+        }
+
 
 
 

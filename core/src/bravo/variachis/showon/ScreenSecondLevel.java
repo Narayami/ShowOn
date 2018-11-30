@@ -24,9 +24,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
     private Texture moveDown, moveUp, moveRight, moveLeft;
     private Texture currentTexture;
 
-    private Texture level2;
-
-    private Riddle riddle;
+    private Riddle2 riddle;
     private MapObjects objects;
 
     private Rectangle player;
@@ -99,8 +97,8 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
 
 
         player = new Rectangle();
-        player.x = 428;
-        player.y = 220;
+        player.x = 250;
+        player.y = 200;
         player.width = moveDown.getWidth();
         player.height = moveDown.getHeight();
 
@@ -150,7 +148,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
 
 
     public boolean interactiveItems(){
-        MapObjects objects = map.getLayers().get(2).getObjects();
+        MapObjects objects = map.getLayers().get(8).getObjects();
 
         for (RectangleMapObject rectangleMapObject : objects.getByType(RectangleMapObject.class)){
 
@@ -234,9 +232,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
             batch.draw(moveLeft, player.x, player.y);
             currentTexture = moveLeft;
             System.out.println("x" + player.x + "y" + player.y );
-            if(player.y < 200){
-                System.out.println("oiasdoiasodasd");
-            }
+
             batch.end();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -244,10 +240,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
             batch.begin();
             batch.draw(moveRight, player.x, player.y);
             currentTexture = moveRight;
-            System.out.println("x" + player.x + "y" + player.y );
-            if(player.y < 200){
-                System.out.println("oiasdoiasodasd");
-            }
+
             batch.end();
 
         }
@@ -256,10 +249,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
             batch.begin();
             batch.draw(moveUp, player.x, player.y);
             currentTexture = moveUp;
-            System.out.println("x" + player.x + "y" + player.y );
-            if(player.y < 200){
-                System.out.println("oiasdoiasodasd");
-            }
+
             batch.end();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
@@ -267,10 +257,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
             batch.begin();
             batch.draw(moveDown, player.x, player.y);
             currentTexture = moveDown;
-            System.out.println("x" + player.x + "y" + player.y );
-            if(player.y < 200){
-                System.out.println("oiasdoiasodasd");
-            }
+
             batch.end();
         }
 
@@ -295,7 +282,7 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
             }
 
             if(questResolved == true ){
-                System.out.println("question True");
+                showOn.setScreen(new LastScreenLevel(showOn));
 
             }
 
@@ -305,15 +292,15 @@ public class ScreenSecondLevel implements Screen, GameScreenInterface {
 
 
 
-       /* if(object1()){
+        if(object1()){
 
-            this.riddle = new Riddle(this);
+            this.riddle = new Riddle2(this);
             batch.begin();
             riddle.create();
             riddle.render();
             batch.end();
         }
-*/
+
 
 
 
